@@ -1,5 +1,5 @@
 import { FC } from "react";
-import Lever from "../../components/lever/lever";
+import Lever from "../../components/combo-dial/combination-button";
 import { LEVERS, MAX_ROUNDS } from "../../constants";
 import { LeverId } from "../../types";
 

@@ -1,5 +1,5 @@
 // General Types
-export type LeverId = "A" | "B" | "C";
+export type DialId = "A" | "B" | "C";
 export type Screen = "start" | "game" | "gameover";
 
 // Game Interfaces

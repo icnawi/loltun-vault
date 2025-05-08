@@ -1,17 +1,17 @@
 import clsx from "clsx";
 import React from "react";
-import { DEFAULT_LEVER_COLOR, LEVER_COLORS } from "../../constants";
-import { LeverId } from "../../types";
+import { COMBO_DIAL_COLORS, DEFAULT_DIAL_COLOR } from "../../constants";
+import { DialId } from "../../types";
 
-interface LeverProps {
-    id: LeverId;
-    onClick: (id: LeverId) => void;
+interface ComboDialProps {
+    id: DialId;
+    onClick: (id: DialId) => void;
     isHighlighted: boolean;
     isDisabled: boolean;
 }
 
-const Lever: React.FC<LeverProps> = ({id, onClick, isHighlighted, isDisabled}) => {
-    const colorClass = isHighlighted ? LEVER_COLORS[id] : DEFAULT_LEVER_COLOR;
+const CombintaionButton: React.FC<ComboDialProps> = ({id, onClick, isHighlighted, isDisabled}) => {
+    const colorClass = isHighlighted ? COMBO_DIAL_COLORS[id] : DEFAULT_DIAL_COLOR;
 
     return <button
       onClick={() => onClick(id)}
@@ -27,4 +27,4 @@ const Lever: React.FC<LeverProps> = ({id, onClick, isHighlighted, isDisabled}) =
     </button>
 }
 
-export default Lever;
+export default CombintaionButton;
