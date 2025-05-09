@@ -6,11 +6,10 @@ type IconButtonProps = {
     title: string;
 }
 
-const IconButton: FC<IconButtonProps> = ({ children, title, onClick }) => {
+export const IconButton: FC<IconButtonProps> = ({ children, title, onClick }) => {
     // TODO: Add <button> tailwind styling
     return (
         <button type="button" onClick={onClick} title={title} aria-label={title}
          className="">{children}</button>
     )
 }
-export default IconButton;

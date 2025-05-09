@@ -1,17 +1,17 @@
 import clsx from "clsx";
 import React from "react";
-import { COMBO_DIAL_COLORS, DEFAULT_DIAL_COLOR } from "../../constants";
+import { DEFAULT_DIAL_COLOR, DIAL_COLORS } from "../../constants";
 import { DialId } from "../../types";
 
-interface ComboDialProps {
+interface DialProps {
     id: DialId;
     onClick: (id: DialId) => void;
     isHighlighted: boolean;
     isDisabled: boolean;
 }
 
-const CombintaionButton: React.FC<ComboDialProps> = ({id, onClick, isHighlighted, isDisabled}) => {
-    const colorClass = isHighlighted ? COMBO_DIAL_COLORS[id] : DEFAULT_DIAL_COLOR;
+const Dial: React.FC<DialProps> = ({id, onClick, isHighlighted, isDisabled}) => {
+    const colorClass = isHighlighted ? DIAL_COLORS[id] : DEFAULT_DIAL_COLOR;
 
     return <button
       onClick={() => onClick(id)}
@@ -27,4 +27,4 @@ const CombintaionButton: React.FC<ComboDialProps> = ({id, onClick, isHighlighted
     </button>
 }
 
-export default CombintaionButton;
+export default Dial;

@@ -1,12 +1,19 @@
 import { DialId, Rewards, Stats } from "../types";
 
+// Game Status
+export const GameplayStatus = {
+    IDLE: "idle",
+    RUNNING: "running",
+    PAUSE: "pause",
+};
+
 // Core mechanics
-export const COMBO_DIALS: DialId[] = ["A", "B", "C"];
+export const DIALS: DialId[] = ["A", "B", "C"];
 
 // Colors
 export const DEFAULT_DIAL_COLOR =
     "bg-gray-400 hover:bg-gray-500 focus:ring-gray-400";
-export const COMBO_DIAL_COLORS: Record<DialId, string> = {
+export const DIAL_COLORS: Record<DialId, string> = {
     A: "bg-red-500 hover:bg-red-600 focus:ring-red-500",
     B: "bg-green-500 hover:bg-green-600 focus:ring-green-500",
     C: "bg-blue-500 hover:bg-blue-600 focus:ring-blue-500",
@@ -32,5 +39,7 @@ export const REWARD: Rewards = {
 export const NO_SCORE: Stats = {
     playCount: 0,
     bestScore: 0,
+    maxLevel: 0,
     trophiesCount: 0,
+    rewards: [],
 };

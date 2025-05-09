@@ -1,12 +1,14 @@
 // General Types
+export type GameplayStatuses = "idle" | "running" | "pause";
 export type DialId = "A" | "B" | "C";
-export type Screen = "start" | "game" | "gameover";
 
 // Game Interfaces
 export interface Stats {
     playCount: number;
     bestScore: number;
+    maxLevel: number;
     trophiesCount: number;
+    rewards: Reward[];
 }
 
 export interface Reward {
