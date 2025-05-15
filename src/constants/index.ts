@@ -1,7 +1,7 @@
 import { DialId, Rewards, Stats } from "../types";
 
 // Game Status
-export const GameplayStatus = {
+export const GameplayPhase = {
     IDLE: "idle",
     RUNNING: "running",
     PAUSE: "pause",
@@ -13,18 +13,22 @@ export const DIALS: DialId[] = ["A", "B", "C"];
 // Colors
 export const DEFAULT_DIAL_COLOR =
     "bg-gray-400 hover:bg-gray-500 focus:ring-gray-400";
-export const DIAL_COLORS: Record<DialId, string> = {
-    A: "bg-red-500 hover:bg-red-600 focus:ring-red-500",
-    B: "bg-green-500 hover:bg-green-600 focus:ring-green-500",
-    C: "bg-blue-500 hover:bg-blue-600 focus:ring-blue-500",
-};
+// export const DIAL_COLORS: Record<DialId, string> = {
+//     A: "bg-red-500 hover:bg-red-600 focus:ring-red-500",
+//     B: "bg-green-500 hover:bg-green-600 focus:ring-green-500",
+//     C: "bg-blue-500 hover:bg-blue-600 focus:ring-blue-500",
+// };
 
 // Intervals
 export const HIGHLIGHT_DURATION = 600;
 export const PAUSE_BETWEEN_HIGHLIGHTS = 300;
+export const SEQUENCE_PLAY_INTERVAL = 700; // ms an animal stays lit during sequence playback
+export const INTER_ANIMAL_DELAY = 200; // ms delay between animals in sequence playback
 
 // Levels and difficulty
+export const MAX_LEVELS = 4;
 export const MAX_ROUNDS = 9;
+export const STARTING_LEVEL = 1;
 
 // Rewards
 export const REWARD: Rewards = {

@@ -1,12 +1,10 @@
 export const UnmuteIcon = () => (
 	<svg
-		fill="#000000"
-		height="800px"
-		width="800px"
 		version="1.1"
 		id="Capa_1"
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 612 612"
+		className="size-5 fill-gray-600"
 	>
 		<g>
 			<g>

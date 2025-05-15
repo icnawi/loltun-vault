@@ -1,1 +1,1 @@
-export const Achievements = () => <></>
+export const Achievements = () => <></>;
