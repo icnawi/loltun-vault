@@ -1,3 +1,3 @@
-import useStats from "./use-stats";
+import { useStats } from './use-stats';
 
 export { useStats };
