@@ -11,14 +11,14 @@ import {
 } from 'react';
 import { panic } from '../utils';
 import * as Tone from 'tone';
-import { ColorPad } from '../types';
+import { Notes } from '../types';
 
 interface SynthContextData {
   ready: boolean;
   starting: boolean;
   error: string | null;
   initializeAudio: () => Promise<void>;
-  playSignalSound: (colorPad: ColorPad) => void;
+  playSignalSound: (note: Notes) => void;
 }
 
 const SynthContext = createContext<SynthContextData | null>(null);
@@ -70,7 +70,7 @@ export const SynthProvider: FC<SynthProviderProps> = ({ children }) => {
   }, [audioState.initialized, audioState.starting]);
 
   const playSignalSound = useCallback(
-    (colorPad: ColorPad) => {
+    (note: Notes) => {
       if (!synthRef.current || !audioState.initialized) {
         console.warn('playAnimalSound: Called but synthRef.current is null.');
         return;
@@ -78,7 +78,7 @@ export const SynthProvider: FC<SynthProviderProps> = ({ children }) => {
 
       try {
         // console.log(`playAnimalSound: Playing note ${animal.note} for ${animal.id}`); // Verbose, uncomment if needed
-        synthRef.current.triggerAttackRelease(colorPad.note, '8n', Tone.now());
+        synthRef.current.triggerAttackRelease(note, '8n', Tone.now());
       } catch (error) {
         console.error('Error playing sound:', error);
       }

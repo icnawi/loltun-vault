@@ -17,7 +17,7 @@ import {
   PLAYBACK_DURATION,
   STARTING_LEVEL,
 } from '../constants';
-import { ColorPad, GameplayPhaseId } from '../types';
+import { ColorPad, GameplayPhases } from '../types';
 import { addRandomToSequence, sleep } from '../utils';
 import { useMessage } from './message.tsx';
 import { useSynth } from './synth.tsx';
@@ -25,13 +25,13 @@ import { useSynth } from './synth.tsx';
 interface GameConfigContextData {
   difficulty?: string;
   config: ColorPad[];
-  gamePhase: GameplayPhaseId;
+  gamePhase: GameplayPhases;
   level: number;
   sequence: ColorPad[];
   playerInput: string[];
   activeColorPadId: string | null;
   playSequence: () => Promise<void>;
-  setGamePhase: Dispatch<SetStateAction<GameplayPhaseId>>;
+  setGamePhase: Dispatch<SetStateAction<GameplayPhases>>;
   setLevel: Dispatch<SetStateAction<number>>;
   setSequence: Dispatch<SetStateAction<ColorPad[]>>;
   setPlayerInput: Dispatch<SetStateAction<string[]>>;
@@ -47,7 +47,7 @@ type GameConfigProviderProps = {
 
 export const GameConfigProvider: FC<GameConfigProviderProps> = ({ children }) => {
   const [config] = useState(ANIMALS_SKIN_CONFIG);
-  const [gamePhase, setGamePhase] = useState<GameplayPhaseId>(GameplayPhase.IDLE);
+  const [gamePhase, setGamePhase] = useState<GameplayPhases>(GameplayPhase.IDLE);
   const [level, setLevel] = useState(STARTING_LEVEL);
   const [sequence, setSequence] = useState<ColorPad[]>([]);
   const [playerInput, setPlayerInput] = useState<string[]>([]);
@@ -80,6 +80,7 @@ export const GameConfigProvider: FC<GameConfigProviderProps> = ({ children }) =>
 
   // --- Function to Play the Current Sequence ---
   const playSequence = useCallback(async () => {
+    console.log(playerInput, sequence);
     if (sequence.length === 0) {
       console.log('playSequence: No sequence to play.');
       return;
@@ -91,7 +92,7 @@ export const GameConfigProvider: FC<GameConfigProviderProps> = ({ children }) =>
     for (const signal of sequence) {
       console.log(`playSequence: Activating ${signal.id}`);
       setActiveColorPadId(signal.id);
-      playSignalSound(signal);
+      playSignalSound(signal.note);
       await sleep(PLAYBACK_DURATION);
       setActiveColorPadId(null);
       await sleep(PAUSE_BETWEEN_HIGHLIGHTS);

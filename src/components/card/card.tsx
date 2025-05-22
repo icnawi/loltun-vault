@@ -1,6 +1,7 @@
 import { FC, ReactNode } from 'react';
 import { useGameConfig } from '../../context/game-config';
 import { useMessage } from '../../context/message.tsx';
+import { double } from '../../utils';
 
 type ChildrenProps = { children: ReactNode | ReactNode[] };
 
@@ -25,10 +26,9 @@ const Header: FC = () => {
   );
 };
 
-const [Body, Footer]: [FC<ChildrenProps>, FC<ChildrenProps>] = [
-  ({ children }) => <>{children}</>,
-  ({ children }) => <>{children}</>,
-];
+const [Body, Footer]: [FC<ChildrenProps>, FC<ChildrenProps>] = double(({ children }) => (
+  <>{children}</>
+));
 
 export const Card = {
   Root,

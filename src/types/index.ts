@@ -1,10 +1,10 @@
 // General Union Types
 import { GameplayPhase } from '../constants';
 
-export type GameplayPhaseId = `${GameplayPhase}`;
-export type NoteId = 'C4' | 'E4' | 'G4' | 'A4';
+export type GameplayPhases = `${GameplayPhase}`;
+export type Notes = 'C4' | 'E4' | 'G4' | 'A4';
 
-interface ColorPalette {
+export interface ColorPalette {
   base: string;
   active: string;
   hover: string;
@@ -14,7 +14,7 @@ export interface ColorPad {
   name: string;
   color: ColorPalette;
   char: string;
-  note: NoteId; // leaving as string for now
+  note: Notes; // leaving as string for now
 }
 
 // Game Interfaces
