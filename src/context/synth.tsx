@@ -87,6 +87,7 @@ export const SynthProvider: FC<SynthProviderProps> = ({ children }) => {
   );
 
   useEffect(() => {
+    initializeAudio();
     return () => {
       if (synthRef.current) {
         synthRef.current.dispose();
