@@ -23,77 +23,75 @@ export const PadList: FC = () => {
   const { ready, playSignalSound } = useSynth();
   const { setMsg } = useMessage();
   // --- Handle Player Clicking an Animal ---
-  const debouncedClick = debounce(
-    async (pad: ColorPad) => {
+
+  const onAnimalClick = async (pad: ColorPad) => {
+    console.log(
+      `handleAnimalClick: Clicked ${pad.id}. gamePhase: ${gamePhase}, isToneStarted: ${ready}. Player input so far: ${JSON.stringify(playerInput)}`,
+    );
+
+    if (!ready) {
+      console.warn('handleAnimalClick: Tone is defined but not started. Exiting.');
+      setMsg('Audio not ready. Try restarting the game.');
+      return;
+    }
+
+    playSignalSound(pad.note);
+    setActiveColorPadId(pad.id);
+    await sleep(250);
+    setActiveColorPadId(null);
+
+    const newPlayerInput = [...playerInput, pad.id];
+    setPlayerInput(newPlayerInput);
+    console.log('handleAnimalClick: Player input updated:', JSON.stringify(newPlayerInput));
+
+    //
+    if (last(newPlayerInput)(newPlayerInput) !== last(sequence)(newPlayerInput).id) {
       console.log(
-        `handleAnimalClick: Clicked ${pad.id}. gamePhase: ${gamePhase}, isToneStarted: ${ready}. Player input so far: ${JSON.stringify(playerInput)}`,
+        'handleAnimalClick: Incorrect animal. Expected:',
+        last(sequence)(newPlayerInput).id,
+        'Got:',
+        last(newPlayerInput)(newPlayerInput),
+        'Game Over.',
+      );
+      setGamePhase('gameover');
+      setMsg(`Game Over! You reached level ${level}.`);
+      return;
+    }
+
+    if (newPlayerInput.length === sequence.length) {
+      console.log(
+        'handleAnimalClick: Player sequence complete and correct: ',
+        JSON.stringify(newPlayerInput),
       );
 
-      if (!ready) {
-        console.warn('handleAnimalClick: Tone is defined but not started. Exiting.');
-        setMsg('Audio not ready. Try restarting the game.');
-        return;
-      }
+      setLevel(prevLevel => prevLevel + 1);
+      setMsg('Great! Next level...');
 
-      playSignalSound(pad.note);
-      setActiveColorPadId(pad.id);
-      await sleep(250);
-      setActiveColorPadId(null);
+      // temp
+      const nextPadSignal = addRandomToSequence(config);
+      console.log(
+        'handleAnimalClick: Advancing level. Sequence just completed was:',
+        JSON.stringify(sequence),
+        'Animal to add:',
+        nextPadSignal,
+      );
 
-      const newPlayerInput = [...playerInput, pad.id];
-      setPlayerInput(newPlayerInput);
-      console.log('handleAnimalClick: Player input updated:', JSON.stringify(newPlayerInput));
+      const newGeneratedSequence = [...sequence, nextPadSignal];
+      setSequence(newGeneratedSequence);
 
-      //
-      if (last(newPlayerInput)(newPlayerInput) !== last(sequence)(newPlayerInput).id) {
-        console.log(
-          'handleAnimalClick: Incorrect animal. Expected:',
-          last(sequence)(newPlayerInput).id,
-          'Got:',
-          last(newPlayerInput)(newPlayerInput),
-          'Game Over.',
-        );
-        setGamePhase('gameover');
-        setMsg(`Game Over! You reached level ${level}.`);
-        return;
-      }
+      // Pause for the "Great! Next level..." message to be seen
+      await sleep(1000);
 
-      if (newPlayerInput.length === sequence.length) {
-        console.log(
-          'handleAnimalClick: Player sequence complete and correct: ',
-          JSON.stringify(newPlayerInput),
-        );
+      // Now trigger the playback of the new, longer sequence
+      setGamePhase(GameplayPhase.WATCH);
+      console.log(
+        'handleAnimalClick: Set gamePhase to showingSequence. Expect useEffect to play new sequence:',
+        JSON.stringify(newGeneratedSequence),
+      );
+    }
+  };
 
-        setLevel(prevLevel => prevLevel + 1);
-        setMsg('Great! Next level...');
-
-        // temp
-        const nextPadSignal = addRandomToSequence(config);
-        console.log(
-          'handleAnimalClick: Advancing level. Sequence just completed was:',
-          JSON.stringify(sequence),
-          'Animal to add:',
-          nextPadSignal,
-        );
-
-        const newGeneratedSequence = [...sequence, nextPadSignal];
-        setSequence(newGeneratedSequence);
-
-        // Pause for the "Great! Next level..." message to be seen
-        // await sleep(1000);
-
-        // Now trigger the playback of the new, longer sequence
-        setGamePhase(GameplayPhase.WATCH);
-        console.log(
-          'handleAnimalClick: Set gamePhase to showingSequence. Expect useEffect to play new sequence:',
-          JSON.stringify(newGeneratedSequence),
-        );
-      }
-    },
-    300,
-    true,
-  );
-  const handlePadClick = useCallback(debouncedClick, [
+  const handlePadClick = useCallback(debounce(onAnimalClick, 300, true), [
     gamePhase,
     playerInput,
     sequence,

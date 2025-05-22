@@ -16,20 +16,26 @@ import { Notes } from '../types';
 interface SynthContextData {
   ready: boolean;
   starting: boolean;
+  mute: boolean;
   error: string | null;
   initializeAudio: () => Promise<void>;
   playSignalSound: (note: Notes) => void;
+  muteOutput: () => void;
+}
+
+interface AudioState {
+  initialized: boolean;
+  mute: boolean;
+  starting: boolean;
+  error: string | null;
 }
 
 const SynthContext = createContext<SynthContextData | null>(null);
 
 type SynthProviderProps = { children: ReactNode };
 export const SynthProvider: FC<SynthProviderProps> = ({ children }) => {
-  const [audioState, setAudioState] = useState<{
-    initialized: boolean;
-    starting: boolean;
-    error: string | null;
-  }>({
+  const [audioState, setAudioState] = useState<AudioState>({
+    mute: false,
     initialized: false,
     starting: false,
     error: null,
@@ -52,9 +58,9 @@ export const SynthProvider: FC<SynthProviderProps> = ({ children }) => {
       }
 
       synthRef.current = new Tone.Synth().toDestination();
-      console.log('Tone.Synth initialized.');
+      console.log('Tone.Synth initialized.', synthRef.current);
 
-      setAudioState({ initialized: true, starting: false, error: null });
+      setAudioState({ initialized: true, mute: false, starting: false, error: null });
     } catch (e) {
       if (synthRef.current) {
         synthRef.current.dispose();
@@ -64,10 +70,33 @@ export const SynthProvider: FC<SynthProviderProps> = ({ children }) => {
       setAudioState({
         initialized: false,
         starting: false,
+        mute: false,
         error: 'Failed to load Tone.js',
       });
     }
   }, [audioState.initialized, audioState.starting]);
+
+  const muteOutput = useCallback(() => {
+    if (!synthRef.current) {
+      console.warn('Called but Synth Ref is null.');
+      return;
+    }
+
+    console.log('before mute', audioState);
+    try {
+      if (!audioState.mute) {
+        synthRef.current.context.destination.mute = true;
+        setAudioState(a => ({ ...a, mute: true }));
+        console.log('on mute', audioState);
+      } else {
+        synthRef.current.context.destination.mute = false;
+        setAudioState(a => ({ ...a, mute: false }));
+        console.log('on unmute', audioState);
+      }
+    } catch (error) {
+      console.error('Error muting sound output:', error);
+    }
+  }, [audioState.mute]);
 
   const playSignalSound = useCallback(
     (note: Notes) => {
@@ -96,6 +125,7 @@ export const SynthProvider: FC<SynthProviderProps> = ({ children }) => {
       setAudioState({
         initialized: false,
         starting: false,
+        mute: false,
         error: null,
       });
     };
@@ -105,11 +135,13 @@ export const SynthProvider: FC<SynthProviderProps> = ({ children }) => {
     () => ({
       ready: audioState.initialized,
       starting: audioState.starting,
+      mute: audioState.mute,
       error: audioState.error,
       initializeAudio,
       playSignalSound,
+      muteOutput,
     }),
-    [audioState, initializeAudio, playSignalSound],
+    [audioState, initializeAudio, playSignalSound, muteOutput],
   );
 
   return <SynthContext.Provider value={value}>{children}</SynthContext.Provider>;
