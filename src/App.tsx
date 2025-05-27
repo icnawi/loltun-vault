@@ -3,10 +3,10 @@ import { Card } from './components/card/card';
 import { GamePane } from './components/game-pane';
 import { ControlPanel } from './components/main/control-panel';
 import { PadList } from './components/pads/pad-list';
-import { useSynth } from './context/synth.tsx';
+import { useTone } from './context/tone.tsx';
 
 export default function App() {
-  const { ready } = useSynth();
+  const { ready } = useTone();
 
   // --- Render Game ---
   return (

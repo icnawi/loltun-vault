@@ -13,7 +13,7 @@ import { panic } from '../utils';
 import * as Tone from 'tone';
 import { Notes } from '../types';
 
-interface SynthContextData {
+interface ToneContextData {
   ready: boolean;
   starting: boolean;
   mute: boolean;
@@ -30,10 +30,10 @@ interface AudioState {
   error: string | null;
 }
 
-const SynthContext = createContext<SynthContextData | null>(null);
+const ToneContext = createContext<ToneContextData | null>(null);
 
-type SynthProviderProps = { children: ReactNode };
-export const SynthProvider: FC<SynthProviderProps> = ({ children }) => {
+type ToneProviderProps = { children: ReactNode };
+export const ToneProvider: FC<ToneProviderProps> = ({ children }) => {
   const [audioState, setAudioState] = useState<AudioState>({
     mute: false,
     initialized: false,
@@ -144,11 +144,11 @@ export const SynthProvider: FC<SynthProviderProps> = ({ children }) => {
     [audioState, initializeAudio, playSignalSound, muteOutput],
   );
 
-  return <SynthContext.Provider value={value}>{children}</SynthContext.Provider>;
+  return <ToneContext.Provider value={value}>{children}</ToneContext.Provider>;
 };
 
-export function useSynth() {
-  const ctx = useContext(SynthContext);
+export function useTone() {
+  const ctx = useContext(ToneContext);
 
   if (!ctx) panic("useContext was used out of Provider's bounds");
   return ctx!;

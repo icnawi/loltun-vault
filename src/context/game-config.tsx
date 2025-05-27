@@ -20,7 +20,7 @@ import {
 import { ColorPad, GameplayPhases } from '../types';
 import { addRandomToSequence, sleep } from '../utils';
 import { useMessage } from './message.tsx';
-import { useSynth } from './synth.tsx';
+import { useTone } from './tone.tsx';
 
 interface GameConfigContextData {
   difficulty?: string;
@@ -54,7 +54,7 @@ export const GameConfigProvider: FC<GameConfigProviderProps> = ({ children }) =>
   const [activeColorPadId, setActiveColorPadId] = useState<string | null>(null);
 
   const { setMsg } = useMessage();
-  const { ready, initializeAudio, playSignalSound } = useSynth();
+  const { ready, initializeAudio, playSignalSound } = useTone();
 
   const startGame = useCallback(async () => {
     console.log('startGame: Attempting to start/restart game.');

@@ -3,7 +3,7 @@ import { useGameConfig } from '../../context/game-config';
 import { ColorPad } from '../../types';
 import { PadItem } from './pad-item';
 import { GameplayPhase } from '../../constants';
-import { useSynth } from '../../context/synth.tsx';
+import { useTone } from '../../context/tone.tsx';
 import { useMessage } from '../../context/message.tsx';
 import { addRandomToSequence, debounce, last, sleep } from '../../utils';
 
@@ -20,7 +20,7 @@ export const PadList: FC = () => {
     level,
     setSequence,
   } = useGameConfig();
-  const { ready, playSignalSound } = useSynth();
+  const { ready, playSignalSound } = useTone();
   const { setMsg } = useMessage();
   // --- Handle Player Clicking an Animal ---
 
