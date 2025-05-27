@@ -1,13 +1,14 @@
 import { useGameConfig } from '../../context/game-config';
 import { ColorPad } from '../../types';
 import { GameplayPhase } from '../../constants';
+import { FC } from 'react';
 
 type PadItemProps = {
   pad: ColorPad;
   onPadClick: () => void;
 };
 
-export const PadItem: React.FC<PadItemProps> = ({ pad, onPadClick }) => {
+export const PadItem: FC<PadItemProps> = ({ pad, onPadClick }) => {
   const { gamePhase, activeColorPadId } = useGameConfig();
 
   return (

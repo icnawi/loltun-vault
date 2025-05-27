@@ -19,7 +19,6 @@ import {
 } from '../constants';
 import { ColorPad, GameplayPhases } from '../types';
 import { addRandomToSequence, sleep } from '../utils';
-import { useMessage } from './message.tsx';
 import { useTone } from './tone.tsx';
 
 interface GameConfigContextData {
@@ -53,7 +52,6 @@ export const GameConfigProvider: FC<GameConfigProviderProps> = ({ children }) =>
   const [playerInput, setPlayerInput] = useState<string[]>([]);
   const [activeColorPadId, setActiveColorPadId] = useState<string | null>(null);
 
-  const { setMsg } = useMessage();
   const { ready, initializeAudio, playSignalSound } = useTone();
 
   const startGame = useCallback(async () => {
@@ -63,7 +61,6 @@ export const GameConfigProvider: FC<GameConfigProviderProps> = ({ children }) =>
 
     if (config.length === 0) {
       console.error('startGame: `config` is empty! Cannot select a first pad.');
-      setMsg('Error: Game configuration is missing. Cannot start.');
       setGamePhase('gameover'); // Or 'idle' to prevent further actions
       return;
     }
@@ -72,7 +69,6 @@ export const GameConfigProvider: FC<GameConfigProviderProps> = ({ children }) =>
     setLevel(STARTING_LEVEL);
     setPlayerInput([]);
     setSequence([]);
-    setMsg('Watch carefully...');
     const firstSignal = addRandomToSequence(config);
     setSequence([addRandomToSequence(config)]);
     console.log('startGame: Game initialized. First signal:', firstSignal, 'State set to demo.');
@@ -99,7 +95,6 @@ export const GameConfigProvider: FC<GameConfigProviderProps> = ({ children }) =>
     }
 
     setGamePhase(GameplayPhase.REPEAT);
-    setMsg('Your turn!');
     setPlayerInput([]);
     console.log('playSequence: Playback finished. State set to playerTurn.');
   }, [sequence, playSignalSound]);

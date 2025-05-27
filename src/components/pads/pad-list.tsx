@@ -4,7 +4,6 @@ import { ColorPad } from '../../types';
 import { PadItem } from './pad-item';
 import { GameplayPhase } from '../../constants';
 import { useTone } from '../../context/tone.tsx';
-import { useMessage } from '../../context/message.tsx';
 import { addRandomToSequence, debounce, last, sleep } from '../../utils';
 
 export const PadList: FC = () => {
@@ -21,7 +20,6 @@ export const PadList: FC = () => {
     setSequence,
   } = useGameConfig();
   const { ready, playSignalSound } = useTone();
-  const { setMsg } = useMessage();
   // --- Handle Player Clicking an Animal ---
 
   const onAnimalClick = async (pad: ColorPad) => {
@@ -31,7 +29,6 @@ export const PadList: FC = () => {
 
     if (!ready) {
       console.warn('handleAnimalClick: Tone is defined but not started. Exiting.');
-      setMsg('Audio not ready. Try restarting the game.');
       return;
     }
 
@@ -54,7 +51,6 @@ export const PadList: FC = () => {
         'Game Over.',
       );
       setGamePhase('gameover');
-      setMsg(`Game Over! You reached level ${level}.`);
       return;
     }
 
@@ -65,7 +61,6 @@ export const PadList: FC = () => {
       );
 
       setLevel(prevLevel => prevLevel + 1);
-      setMsg('Great! Next level...');
 
       // temp
       const nextPadSignal = addRandomToSequence(config);
