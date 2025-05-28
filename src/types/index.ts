@@ -2,7 +2,7 @@
 import { GameplayPhase } from '../constants';
 
 export type GameplayPhases = `${GameplayPhase}`;
-export type Notes = 'C4' | 'E4' | 'G4' | 'A4';
+export type Note = 'G3' | 'C4' | 'E4' | 'G4' | 'A4';
 
 export interface ColorPalette {
   base: string;
@@ -14,7 +14,7 @@ export interface ColorPad {
   name: string;
   color: ColorPalette;
   char: string;
-  note: Notes; // leaving as string for now
+  note: Note; // leaving as string for now
 }
 
 // Game Interfaces

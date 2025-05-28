@@ -17,7 +17,7 @@ export const PadItem: FC<PadItemProps> = ({ pad, onPadClick }) => {
       onClick={onPadClick}
       disabled={gamePhase !== GameplayPhase.REPEAT}
       className={`
-                p-4 h-28 md:h-32 rounded-lg shadow-lg 
+                p-4 w-32 h-32 md:w-36 md:h-36 rounded-full shadow-lg 
                 flex flex-col items-center justify-center
                 text-2xl md:text-3xl transition-all duration-150 ease-in-out
                 focus:outline-none focus:ring-4 focus:ring-opacity-50

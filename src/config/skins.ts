@@ -10,7 +10,7 @@ export const ANIMALS_SKIN_CONFIG: ColorPad[] = [
       hover: `bg-green-600`,
     },
     char: '🐢',
-    note: 'C4',
+    note: 'G3',
   },
   {
     id: 'octopus',
@@ -21,7 +21,7 @@ export const ANIMALS_SKIN_CONFIG: ColorPad[] = [
       hover: `bg-red-600`,
     },
     char: '🐙',
-    note: 'E4',
+    note: 'C4',
   },
   {
     id: 'jellyfish',
@@ -32,7 +32,7 @@ export const ANIMALS_SKIN_CONFIG: ColorPad[] = [
       hover: `bg-blue-600`,
     },
     char: '🪼',
-    note: 'G4',
+    note: 'E4',
   },
   {
     id: 'blowfish',
@@ -43,6 +43,6 @@ export const ANIMALS_SKIN_CONFIG: ColorPad[] = [
       hover: `bg-yellow-600`,
     },
     char: '🐡',
-    note: 'A4',
+    note: 'G4',
   },
 ];

@@ -96,7 +96,7 @@ export const PadList: FC = () => {
   ]);
 
   return (
-    <div className="grid grid-cols-2 gap-4 mb-8">
+    <div className="grid grid-cols-2 gap-4 mb-8 justify-items-center">
       {config.map((pad: ColorPad) => (
         <PadItem key={pad.id} pad={pad} onPadClick={() => handlePadClick(pad)} />
       ))}

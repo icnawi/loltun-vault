@@ -1,4 +1,3 @@
-import './App.css';
 import { Card } from './components/card/card';
 import { GamePane } from './components/game-pane';
 import { ControlPanel } from './components/main/control-panel';
