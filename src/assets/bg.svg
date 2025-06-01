@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 700">
+    <defs>
+        <style>
+            .cls-1 { fill:#a7c7e7; }  <!-- Light Blue -->
+            .cls-2 { fill:#6fa8dc; }  <!-- Medium Blue -->
+            .cls-3 { fill:#e6f2ff; }  <!-- Very Light Blue -->
+            .cls-4 { fill:#b8d4f0; }  <!-- Soft Blue -->
+        </style>
+    </defs>
+    <g id="Layer_2">
+        <g id="Layer_4">
+            <!-- Background polygon -->
+            <polygon class="cls-1" points="600 700 0 700 0 613.18 0 212.15 0 0 600 0 600 700"/>
+
+            <!-- Example path for natural shapes -->
+            <path class="cls-2" d="M140.83,113C160.44,105.6,202.94,8,195.31,0h41.42c8.71,0-8.72,84.65-75.2,143.5C97.69,200,66.54,149,0,212.15V192.54C49.29,134.78,108.13,155.48,140.83,113Z"/>
+
+            <!-- Example circles for details -->
+            <circle class="cls-3" cx="82.93" cy="173.37" r="10.29"/>
+            <path class="cls-4" d="M75.21,173.37a8,8,0,0,1,7.72-7.89c4.33,0-1.93,3.24,0,7.89S75.21,177.31,75.21,173.37Z"/>
+        </g>
+    </g>
+</svg>

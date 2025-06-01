@@ -11,7 +11,7 @@ import {
 } from 'react';
 import { panic } from '../utils';
 import * as Tone from 'tone';
-import { Notes } from '../types';
+import { Note } from '../types';
 
 interface ToneContextData {
   ready: boolean;
@@ -19,7 +19,7 @@ interface ToneContextData {
   mute: boolean;
   error: string | null;
   initializeAudio: () => Promise<void>;
-  playSignalSound: (note: Notes) => void;
+  playSignalSound: (note: Note) => void;
   muteOutput: () => void;
 }
 
@@ -99,7 +99,7 @@ export const ToneProvider: FC<ToneProviderProps> = ({ children }) => {
   }, [audioState.mute]);
 
   const playSignalSound = useCallback(
-    (note: Notes) => {
+    (note: Note) => {
       if (!synthRef.current || !audioState.initialized) {
         console.warn('playAnimalSound: Called but synthRef.current is null.');
         return;

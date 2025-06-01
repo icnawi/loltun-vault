@@ -7,7 +7,9 @@ import { MuteButton } from '../mute/mute-button.tsx';
 type ChildrenProps = { children: ReactNode | ReactNode[] };
 
 const Root: FC<ChildrenProps> = ({ children }) => (
-  <div className="bg-gray-700 p-6 md:p-8 rounded-xl shadow-2xl w-full max-w-md text-center">
+  <div
+    className="bg-gray-700 p-6 md:p-8 rounded-xl shadow-2xl w-full max-w-md text-center"
+    style={{ background: 'url(/src/assets/bg.svg)' }}>
     {children}
   </div>
 );
